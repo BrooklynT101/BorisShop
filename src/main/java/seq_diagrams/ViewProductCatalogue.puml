@@ -1,0 +1,44 @@
+@startuml
+
+' Had to get ChatGPT to help with this one because I found the code weird and I'm tired
+' === Style Tweaks ===
+skin rose
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+	BorderColor #A80036
+  }
+}
+
+' === Actors / Participants
+
+actor "Customer\n(Signed In)" as customer
+participant "view-products.jsp" as viewPage << JSP Page >>
+database "Database" as db
+
+' === Interactions ===
+
+customer -> viewPage++ : clicks "View Products" link
+
+viewPage -> db++ : open connection
+
+viewPage -> db++ : SELECT * FROM Product
+db --> viewPage : return productList
+
+viewPage -> viewPage : render product list
+
+viewPage -> db++ : close connection
+
+viewPage --> customer : display products
+
+@enduml

@@ -1,0 +1,160 @@
+/*While I can work the styling commands of css well, 
+I'm not great at styling or graphic design, so I had 
+ChatGPT to help me with making my site look...not as bad*/
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Sans-serif;
+}
+
+/* Generic Element Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* Navigation Menu */
+/* Navigation Menu */
+.navbar {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+.nav-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-menu li {
+    margin-right: 20px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    text-decoration: none;
+    background-color: #444;
+    border-radius: 5px;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; 
+}
+
+
+/* Products */
+#productList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.productContent {
+    padding: 20px;
+    padding-bottom: 80px;
+}
+.product {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33% - 40px);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+/* Category Buttons */
+.categories {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.categories button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.categories button:hover {
+    background-color: #0056b3;
+}
+
+/* Boris Pic Styling */
+.boris-images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.boris-images img {
+    width: 300px; 
+    height: 400px;
+    object-fit: cover; /* crop image to fit dimensions */
+    border-radius: 10px;
+    border-color: black;
+    border-width: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* hover effect */
+}
+
+.boris-images img:hover {
+    transform: scale(1.1); /* zoom in on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* add hover shadow */
+}
+
