@@ -1,0 +1,98 @@
+<%-- 
+    Document   : view-products
+    Created on : 28/08/2024, 11:24:50 pm
+    Author     : ChatGPT
+--%>
+
+<%@page import="java.util.Collection"%>
+<%@page import="dao.JdbiDaoFactory"%>
+<%@page import="dao.ProductDAO"%>
+<%@page import="domain.Product"%>
+<%--
+Had to get Chatgpt to help me a lot with this one, I struggled to get the category
+buttons to actually interact with the products on screen, then with a lot of other
+display issues like null values
+--%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <title>View Products</title>
+    </head>
+    <body>
+
+        <!-- Adding nav menu -->
+        <%@include file="WEB-INF/jspf/navigation.jspf"%>
+
+        <header>
+            <h1>Product Catalog</h1>
+        </header>
+
+        <!-- Category Buttons -->
+        <div class="categories">
+            <!--            CGPT gave me the idea for the GET form for the category rather than I just use
+                        buttons to try and manipulate the products on screen, much simpler-->
+            <form id="categoryForm" method="GET">
+                <!--need the all button even without any products-->
+                <button type="submit" name="category" value="ALL">ALL</button>
+                <%                    // get the categories from the DAO
+                    ProductDAO productDAO = JdbiDaoFactory.getProductDAO();
+                    Collection<String> categories = productDAO.getCategories();
+
+                    // generate the button for each -DISTINCT- category
+                    for (String category : categories) {
+                %>
+                <button type="submit" name="category" value="<%= category%>"><%= category%></button>
+                <%
+                    }
+                %>
+            </form>
+        </div>
+
+        <!-- Content Area -->
+        <div class="productContent">
+            <%
+//                 pull selected category from the request
+                String selectedCategory = request.getParameter("category");
+                Collection<Product> products;
+
+//                 if theres a selection
+                if (selectedCategory != null && !selectedCategory.equals("ALL")) {
+                    // Filter products by selected category
+                    products = productDAO.filterByCategory(selectedCategory);
+                } else {
+//                    if theres nothing selected (when page loads) or "ALL" is clicked it returns every product
+                    products = productDAO.getProducts();
+                }
+
+// if the products arent null then render the product elements and place on screen
+                if (products != null && !products.isEmpty()) {
+                    for (Product product : products) {
+            %>
+            <div class="product">
+                <h2><%= product.getName()%> ID: <%= product.getProductId()%></h2>
+                <p><%= product.getDescription()%></p>
+                <p><strong>Category:</strong> <%= product.getCategory()%></p>
+                <p><strong>Price:</strong> $<%= product.getListPrice()%></p>
+                <p><strong>Quantity In Stock:</strong> <%= product.getQuantityInStock()%></p>
+            </div>
+            <hr>
+            <%
+                }
+            } else {
+            %>
+            <!-- if theres an error and no products are displayed (or there just is non) -->
+            <p>No products available.</p>
+            <%
+                }
+            %>
+        </div>
+
+        <footer>
+            <h1>We sell the biggest range of Cat Products</h1>
+        </footer>
+
+    </body>
+</html>

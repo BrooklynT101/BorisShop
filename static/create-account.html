@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        
+        <title>Create an account</title>
+    </head>
+    <body>
+
+        <!--adding nav menu-->
+
+        <header>
+            <h1>Create an account!</h1>
+        </header>
+        <main>
+            <!-- Content Area -->
+            <div class="content">
+                <form action="create-account" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
+
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required><br>
+
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br>
+
+                    <label for="address">Address:</label>
+                    <input type="address" id="address" name="address" required><br>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="customer.password" required><br>
+
+                    <button type="submit">Create Account</button>
+                </form>
+                
+                <div id="statusMessage"></div>
+
+            </div>
+        </main>
+        <footer>
+            <h1>Join the Boris Army</h1>
+        </footer>       
+
+        <!-- JavaScript to handle message display -->
+        <script>
+            window.onload = function () {
+                const statusMessage = document.getElementById('statusMessage');
+                if (statusMessage.innerHTML !== '') {
+                    statusMessage.style.display = 'block';
+                }
+            };
+        </script>
+
+    </body>
+</html>

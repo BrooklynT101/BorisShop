@@ -1,0 +1,77 @@
+
+<%@page import="java.util.Collection"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>JSP Page</title>
+		<link rel="stylesheet" href="css/style.css"/>
+	</head>
+	<body>
+		<main>
+<!--adding nav menu-->
+<%@include file="WEB-INF/jspf/navigation.jspf"%>
+
+			<h1>Students</h1>
+
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>Phone Number</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+						StudentDAO dao = new StudentCollectionsDAO();
+
+						// get the major from the query parameter
+						String selectedMajor = request.getParameter("major");
+
+						// declare the students collection
+						Collection<Student> students;
+
+						// if there is no major parameter, or "All" is requested, return all students
+						if (selectedMajor == null || selectedMajor.equals("All")) {
+							students = dao.getAll();
+						} else {
+							// otherwise, get the students for the requested major
+							students = dao.filterByMajor(selectedMajor);
+						}
+
+						for (Student student : students) {
+					%>
+					<tr>
+						<td><%= student.getId()%></td>
+						<td><%= student.getName()%></td>
+						<td><%= student.getAddress()%></td>
+						<td><%= student.getPhoneNumber()%></td>
+						<td><form action="view-student" method="POST"><input type="hidden" name="id" value="<%= student.getId()%>"><button>Update</button></form></td>
+					</tr>
+					<%
+						}
+					%>
+
+				<a href="view-students.jsp?major=All"><button>All</button></a>
+
+				<%
+					Collection<String> majors = dao.getMajors();
+
+					for (String major : majors) {
+				%>
+
+				<a href="view-students.jsp?major=<%= major%>"><button><%= major%></button></a>
+
+				<%
+					}
+				%>
+				</tbody>
+			</table>
+
+			<a class="nav" href="index.jsp">Back to Menu</a>
+		</main>
+	</body>
+</html>
