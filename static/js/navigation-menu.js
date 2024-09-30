@@ -3,11 +3,24 @@ export const navigationMenu = {
             `
             <nav class="navbar">
                 <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="view-products.html" class="nav-link">View Products</a></li>
-                    <li><a href="sign-in.html" class="nav-link">Sign In</a></li>
-                    <li><a href="create-account.html" class="nav-link">Create an Account</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li v-if="currCustomer"><a href="view-products.html">View Products</a></li>
+                    <li v-if="!currCustomer"><a href="sign-in.html">Sign In</a></li>
+                    <li v-if="!currCustomer"><a href="create-account.html">Create Account</a></li>
+                    <li v-if="currCustomer"><a href="customer-account.html">My Account</a></li>
+                    <li v-if="currCustomer"><a @click="logOut">Log Out</a></li>
                 </ul>
             </nav>
-		`
+		`,
+    computed: {
+        currCustomer() {
+            return this.$store.state.currCustomer;
+        }
+    },
+    methods: {
+        logOut() {
+            this.$store.commit('logOutCustomer');
+            window.location = 'index.html'; // Redirect after logout
+        }
+    }
 };
