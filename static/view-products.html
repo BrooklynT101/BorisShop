@@ -18,25 +18,18 @@
                 <h1>Product Catalog</h1>
             </header>
 
-            <!--         Category Buttons 
-                    <div class="categories">
-                        <form id="categoryForm" method="GET">
-                            need the all button even without any products
-                            <button type="submit" name="category" value="ALL">ALL</button>
-                             retrieve the -DISTINCT- categories from the DAO to create the buttons to sort by
-                            ProductDAO productDAO = JdbiDaoFactory.getProductDAO();
-                            Collection<String> categories = productDAO.getCategories();
-            
-                                // generate the buttons for each -DISTINCT- category
-                                for every category in categories
-                                <button type="submit" name="category" value="<%= category%>"><%= category%></button>
-                        </form>
-                    </div>-->
+            <!--Category Buttons --> 
+            <div class="categories">
+                <button @click="filterProducts('ALL')">ALL</button>
+                <div class="category" v-for="category in categories" :key="category">
+                    <button @click="filterProducts(category)">{{ category }}</button>
+                </div>
+            </div>
 
             <!-- Content Area -->
             <div class="productContent">
                 <!-- for each product using the Vue v-for -->
-                <div class="product" v-for="product in products" :key="product.productId">
+                <div class="product" v-for="product in filteredProducts" :key="product.productId">
                     <h2>{{ product.name }} (ID: {{ product.productId }})</h2>
                     <p>{{ product.description }}</p>
                     <p><strong>Category:</strong> {{ product.category }}</p>
@@ -45,7 +38,7 @@
                 </div>
 
                 <!-- Error message if no products available -->
-                <p v-if="products.length === 0">No products available.</p>
+                <p v-if="filteredProducts.length === 0">No products available.</p>
             </div>
 
             <footer>

@@ -5,6 +5,9 @@
     "attributes": {
         "@submit.prevent": {},
         "v-if": {},
+        "@click": {
+            "context": "button"
+        },
         "v-for": {},
         "v-model": {},
         "@click.prevent": {}

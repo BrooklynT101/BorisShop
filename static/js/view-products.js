@@ -1,21 +1,23 @@
 /* global Vue, axios */
 
 var productsApi = '/api/products';
+const categoriesApi = '/api/categories';
 
 const app = Vue.createApp({
 
     data() {
         return {
             // models map (comma separated key/value pairs)
-            products: new Array()
+            products: new Array(),
+            filteredProducts: new Array(),
+            categories: new Array()
         };
     },
-
     mounted() {
         // semicolon separated statements
         this.getProducts();
+        this.getCategories();
     },
-
     methods: {
         // comma separated function declarations
         getProducts() {
@@ -25,39 +27,44 @@ const app = Vue.createApp({
                     .then(response => {
                         // store response in products model
                         this.products = response.data;
+                        this.filteredProducts = response.data;
                     })
                     .catch(error => {
                         console.error(error);
                         alert("An error occurred - check the console for details.");
                     });
+        },
 
+        getCategories() {
+            axios.get(categoriesApi)
+                    .then(response => {
+                        this.categories = response.data; // store distinct categories
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("An error occurred while fetching categories.");
+                    });
+        },
+
+        filterProducts(category) {
+            // if nothing or ALL is selected show everything, 
+            if (category === 'ALL' || category === null) {
+                this.filteredProducts = this.products;
+//                otherwise filter by the category string
+            } else {
+                this.filteredProducts = this.products.filter(product => product.category === category); // Filter by category
+            }
         }
-
-//        update(category) {
-////            The sessionStore.commit call is calling the selectStudent mutation passing the product.
-//            sessionStore.commit('selectedCategory', category);
-////            The window.location is the JavaScript equivalent of sendRedirect — it is telling the browser to load the update-product.html page.
-//            window.location = 'view-products.html';
-//        }
 
     }
 
-//    // other modules
-//    mixins: []
-
 });
-
 // other component imports go here
 
 // import the navigation menu
 import { navigationMenu } from './navigation-menu.js';
 
-// import the session store
-//import { sessionStore } from './session-store.js';
-//app.use(sessionStore);
-
 // register the navigation menu under the <navmenu> tag
 app.component('navmenu', navigationMenu);
-
 // mount the page - this needs to be the last line in the file
 app.mount("main");
