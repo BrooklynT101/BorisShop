@@ -1,7 +1,9 @@
 export const sessionStore = Vuex.createStore({
 
     state() {
-        currCustomer: null;
+        return {
+            currCustomer: null
+        };
     },
 
     mutations: {

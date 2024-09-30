@@ -12,15 +12,18 @@ export const navigationMenu = {
                 </ul>
             </nav>
 		`,
-    computed: {
-        currCustomer() {
-            return this.$store.state.currCustomer;
-        }
-    },
+    computed: Vuex.mapState({
+        // Access the current logged-in customer from sessionStore
+        customer: 'currCustomer'
+    }),
+
     methods: {
-        logOut() {
-            this.$store.commit('logOutCustomer');
-            window.location = 'index.html'; // Redirect after logout
+        signOut() {
+            // log out by committing the mutation
+            sessionStore.commit('signOutCustomer');
+
+            // redirect to index
+            window.location = 'index.html';
         }
     }
 };
