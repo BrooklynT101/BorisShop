@@ -22,17 +22,13 @@ public class CustomerModule extends Jooby {
         // Login route for customers
         post("/api/signin", ctx -> {
             Customer attempt = ctx.body().to(Customer.class); // Get login details from request body
-            if (attempt == null) {
-                // customer not found -- need to alert customer 
-                return ctx.send(StatusCode.NOT_FOUND);
-            }
-
             Customer customer = dao.getCustomerByUsername(attempt.getUsername());
 
             // check credientials
             if (dao.checkCustomerCredentials(attempt.getUsername(), attempt.getPassword())) {
                 // Successful login
                 return customer;
+//                return ctx.send(attempt);
             } else {
                 // if login failed return error -- need to alert customer customer "Invalid login credentials"
                 return ctx.send(StatusCode.UNAUTHORIZED);

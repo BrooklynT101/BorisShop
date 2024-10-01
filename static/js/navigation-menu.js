@@ -1,29 +1,29 @@
 export const navigationMenu = {
-    template:
-            `
-            <nav class="navbar">
-                <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li v-if="currCustomer"><a href="view-products.html">View Products</a></li>
-                    <li v-if="!currCustomer"><a href="sign-in.html">Sign In</a></li>
-                    <li v-if="!currCustomer"><a href="create-account.html">Create Account</a></li>
-                    <li v-if="currCustomer"><a href="customer-account.html">My Account</a></li>
-                    <li v-if="currCustomer"><a @click="logOut">Log Out</a></li>
-                </ul>
-            </nav>
-		`,
-    computed: Vuex.mapState({
-        // Access the current logged-in customer from sessionStore
-        customer: 'currCustomer'
-    }),
+  computed: {
+    signedIn() {
+      return this.customer !== null;
+    },
+    ...Vuex.mapState({
+      customer: 'customer' // Match this with the state property in session-store.js
+    })
+  },
 
-    methods: {
-        signOut() {
-            // log out by committing the mutation
-            sessionStore.commit('signOutCustomer');
+  template: `
+    <nav>
+      <div v-if="signedIn">Welcome {{customer.firstName}}</div>
+      <a href=".">Home</a>
+      <a href="products.html" v-if="signedIn">Browse Products</a>
+      <a href="cart.html" v-if="signedIn">View Cart</a>
+      <a href="#" v-if="signedIn" @click="signOut()">Sign Out</a>
+      <a href="sign-in.html" v-if="!signedIn">Sign In</a>
+    </nav>
+  `,
 
-            // redirect to index
-            window.location = 'index.html';
-        }
+  methods: {
+    signOut() {
+      sessionStorage.clear();
+      this.$store.commit('signIn', null); // Clear customer state if needed
+      window.location = '.'; // Redirect after signing out
     }
+  }
 };

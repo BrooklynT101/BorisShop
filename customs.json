@@ -3,7 +3,9 @@
         "navmenu": {}
     },
     "attributes": {
-        "@submit.prevent": {},
+        "@submit.prevent": {
+            "context": "form"
+        },
         "v-if": {},
         "@click": {
             "context": "button"

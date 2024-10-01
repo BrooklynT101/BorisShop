@@ -1,51 +1,63 @@
 /* global Vue, axios */
 
+
+// import vuex store
+import { sessionStore } from './session-store.js';
+
+// import the navigation menu
+import { navigationMenu } from './navigation-menu.js';
+
 const app = Vue.createApp({
 
     data() {
         return {
-            customer: {email: '', password: ''} // Bind customer login form
+            customer: {username: '', password: ''} // Bind customer login form
         };
-    },
-    mounted() {
-// semicolon separated statements
-
-        alert('Mounted method called');
     },
     methods: {
         // comma separated function declarations
-        signInCustomer() {
-            axios.post('/api/customers/signin', this.customer)
+        signIn() {
+            axios.post('/api/signin', this.customer)
                     .then(response => {
                         // get customer 
                         const customer = response.data;
 
-// 
-                        if (customer) {
-                            // store customer in session
-                            sessionStore.commit('SignInCustomer', customer);
+                        // store customer in session
+                        sessionStore.commit('signIn', customer);
+                        alert('User Signed In!');
+                        window.location = 'index.html';
 
-                            // debug alert
-                            alert('User Signed In!');
-                            window.location = 'index.html';
-                        } else {
-                            alert('Wrong Username/Password Combination');
-                        }
                     })
                     .catch(error => {
-                        console.error(error);  // Log the error for debugging
-                        alert('An error occurred during login. Please try again.');
+                        if (error.response) {
+                            // The request was made and the server responded with a status code
+                            // that falls out of the range of 2xx
+                            if (error.response.status === 401) {
+                                alert('Wrong Username/Password Combination');
+                            } else {
+                                alert('An error occurred: ' + error.response.data.message);
+                            }
+                        } else {
+                            // Something happened in setting up the request that triggered an Error
+                            alert('An error occurred during login. Please try again.');
+                        }
                     });
         }
+    },
+
+    mounted() {
+        alert('Mounted method called');
     }
-    ,
-    // other modules
-    mixins: []
+//    mixins: []
 
 }
 );
-// other component imports go here
 
+// register the navigation menu under the <navmenu> tag
+app.component('navmenu', navigationMenu);
+
+// sse the Vuex store
+app.use(sessionStore);
 
 // mount the page - this needs to be the last line in the file
 app.mount("main");

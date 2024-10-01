@@ -3,6 +3,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
         <title>Sign In</title>
     </head>
     <body>
@@ -16,19 +20,17 @@
 
             <!-- Content Area -->
             <div class="content">
-                <form action="sign-in" method="post">
-
+                <form @submit.prevent="signIn">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required><br>
+                    <input type="text" id="username" v-model="customer.username" required><br>
 
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required><br>
+                    <input type="password" id="password" v-model="customer.password" required><br>
 
                     <button type="submit">Sign In</button>
-
                 </form>
-                <!-- need to add the pop up alert-->
             </div>
+            <!-- need to add the pop up alert-->
 
             <footer>
                 <h1>Don't have an account? <a href="create-account.jsp">Create one here!</a></h1>
