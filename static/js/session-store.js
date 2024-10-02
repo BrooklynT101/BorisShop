@@ -20,14 +20,41 @@ export const sessionStore = Vuex.createStore({
         selectProduct(state, product) {
             state.selectedProduct = product;
         },
+
+        addItem(product, quantity) {
+            //            error checking
+            if (!product) {
+                console.error('No product selected');
+                return;
+            }
+
+////cloning the cart items to remove vue proxy and circular referencing
+//            let cartItems = JSON.parse(JSON.stringify(this.items || [])); // retrieve current items or initialize empty array
+
+            // checking if the product already exists in the cart
+            const existingItem = this.items.find(item => item.productId === product.productId);
+            // if it does, update quantity
+            if (existingItem) {
+                existingItem.quantity += parseInt(quantity, 10);
+                // else just add it
+            } else {
+                // Add the new product to the cart
+                this.items.push({
+                    productId: product.productId,
+                    name: product.name,
+                    price: product.listPrice,
+                    quantity: parseInt(quantity, 10)
+                });
+            }
+
+            console.log('Cart Items:', this.items);
+            console.log('Product to be added:', product);
+            // commit clean cart to Vuex state
+            sessionStore.commit('updateCart', this.items);
+            console.log(`Added ${quantity} of ${product.name} to the cart.`);
+//            window.location = 'view-products.html';
+        },
         
-        addItem(state, item) {
-            state.items.push(item);
-        },
-        // add item to cart
-        addProduct(state, product) {
-            state.items.push(product);
-        },
         //update cart items
         updateCart(state, items) {
             state.items = items;

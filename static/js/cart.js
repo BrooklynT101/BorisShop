@@ -1,7 +1,6 @@
 /* global Vue */
 
 "use strict";
-
 // import data store
 import { sessionStore } from './session-store.js';
 
@@ -24,43 +23,60 @@ const app = Vue.createApp({
 
     data() {
         return {
-            cartItems: [], // To hold items from sessionStorage
-            totalAmount: 0 // To hold the total cart amount
+            totalAmount: 0 // to hold the total cart amount
         };
     },
-
-    computed: Vuex.mapState({
-        product: 'selectedProduct',
-        items: 'items',
-        customer: 'customer'
-    }),
+    computed: {
+        ...Vuex.mapState({
+                items: 'items',
+                customer: 'customer',
+                totalAmount() {
+                        return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+                }
+        })
+    },
 
     mounted() {
-        // semicolon separated statements
-        this.loadCart();
     },
 
     methods: {
-        // comma separated function declarations
-        loadCart() {
-            // Retrieve cart items from sessionStorage
-            const items = JSON.parse(sessionStorage.getItem("items")) || [];
-            this.cartItems = items;
 
-            // Calculate the total amount
-            this.totalAmount = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        // Call the mutation via the usual session commit call in the 'then' callback of the Axios request.
+        checkOut() {
+            //need to complete this -  It should: 
+            // - create a Sale domain object
+            // - POST the sale object to the /api/sales path of the web service
+            // - then call clearItems()
+//            let sale = new Sale(this.customer, this.items);
+//            axois.post()
         },
 
-        checkOut() {
-            let sale = new Sale(this.customer, this.items);
-            axois.post()
+        // clear cart items
+        clearItems() {
+            this.items = [];
+            sessionStore.commit('updateCart', this.items);
+        },
+
+        addItem(item) {
+            const checkItem = this.items.find(i => i.productId === item.productId);
+            //if check exists update the item quantity
+            if (checkItem) {
+                checkItem.quantity += item.quantity;
+            }
+            //else push the item
+            else {
+                this.items.push(item);
+            }
+
+//            commit to the session
+            sessionStore.commit('updateCart', this.items);
         }
     }
 
 });
-
 /* other component imports go here */
 
+// use vuex store
 app.use(sessionStore);
 
 // mount the page - this needs to be the last line in the file

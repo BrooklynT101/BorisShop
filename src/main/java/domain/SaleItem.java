@@ -7,51 +7,40 @@ import java.math.BigDecimal;
  */
 public class SaleItem {
 
-	private BigDecimal quantityPurchased;
-	private BigDecimal salePrice;
+    private Product product;
+    private int quantity;
 
-	private Product product;
+    public SaleItem() {
+    }
 
-	public SaleItem() {
-	}
+    public SaleItem(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
 
-	public SaleItem(BigDecimal quantityPurchased, BigDecimal salePrice, Product product) {
-		this.quantityPurchased = quantityPurchased;
-		this.salePrice = salePrice;
-		this.product = product;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
-	public Product getProduct() {
-		return product;
-	}
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    public int getQuantityPurchased() {
+        return quantity;
+    }
 
-	public BigDecimal getQuantityPurchased() {
-		return quantityPurchased;
-	}
+    public void setQuantityPurchased(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public void setQuantityPurchased(BigDecimal quantityPurchased) {
-		this.quantityPurchased = quantityPurchased;
-	}
+    public BigDecimal getItemTotal() {
+        return this.product.getListPrice().multiply(BigDecimal.valueOf(quantity));
+    }
 
-	public BigDecimal getSalePrice() {
-		return salePrice;
-	}
-
-	public void setSalePrice(BigDecimal salePrice) {
-		this.salePrice = salePrice;
-	}
-
-	public BigDecimal getItemTotal() {
-		return this.quantityPurchased.multiply(salePrice);
-	}
-
-	@Override
-	public String toString() {
-		return "SaleItem{" + "product=" + product + ", quantityPurchased=" + quantityPurchased + ", salePrice=" + salePrice + '}';
-	}
+    @Override
+    public String toString() {
+        return "SaleItem{" + "product=" + product + ", quantity=" + quantity + '}';
+    }
 
 }
