@@ -1,5 +1,11 @@
 /* global Vue, axios */
 
+// import vuex store
+import { sessionStore } from './session-store.js';
+
+// import the navigation menu
+import { navigationMenu } from './navigation-menu.js';
+
 var productsApi = '/api/products';
 const categoriesApi = '/api/categories';
 
@@ -54,17 +60,22 @@ const app = Vue.createApp({
             } else {
                 this.filteredProducts = this.products.filter(product => product.category === category); // Filter by category
             }
+        },
+
+        buyProduct(product) {
+            sessionStore.commit("selectProduct", product);
+            window.location = "quantity.html"
         }
 
     }
 
 });
-// other component imports go here
-
-// import the navigation menu
-import { navigationMenu } from './navigation-menu.js';
 
 // register the navigation menu under the <navmenu> tag
 app.component('navmenu', navigationMenu);
+
+// use the Vuex store
+app.use(sessionStore);
+
 // mount the page - this needs to be the last line in the file
 app.mount("main");

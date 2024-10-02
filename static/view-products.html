@@ -10,6 +10,7 @@
         <title>View Products</title>
     </head>
     <body>
+        
         <main>
             <!-- Adding nav menu -->
             <navmenu></navmenu>
@@ -20,9 +21,9 @@
 
             <!--Category Buttons --> 
             <div class="categories">
-                <button @click="filterProducts('ALL')">ALL</button>
+                <button @click.prevent="filterProducts('ALL')">ALL</button>
                 <div class="category" v-for="category in categories" :key="category">
-                    <button @click="filterProducts(category)">{{ category }}</button>
+                    <button @click.prevent="filterProducts(category)">{{ category }}</button>
                 </div>
             </div>
 
@@ -35,6 +36,7 @@
                     <p><strong>Category:</strong> {{ product.category }}</p>
                     <p><strong>Price:</strong> ${{ product.listPrice }}</p>
                     <p><strong>Quantity In Stock:</strong> {{ product.quantityInStock }}</p>
+                    <button @click.prevent="buyProduct(product)">Buy</button>
                 </div>
 
                 <!-- Error message if no products available -->
