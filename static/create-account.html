@@ -7,58 +7,49 @@
         <script src="js/external/vuex.global.js"></script>
         <script src="js/external/vuex-persistedstate.js"></script>
         <script src="js/external/axios.js"></script>
-        
+
         <title>Create an account</title>
     </head>
     <body>
 
-        <!--adding nav menu-->
-
-        <header>
-            <h1>Create an account!</h1>
-        </header>
         <main>
+            <!--adding nav menu-->
+            <navmenu></navmenu>
+
+            <header>
+                <h1>Create an account!</h1>
+            </header>
+
             <!-- Content Area -->
             <div class="content">
-                <form action="create-account" method="post">
+                <form @submit.prevent="registerCustomer">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required><br>
+                    <input type="text" id="username" v-model="username" required><br>
 
                     <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="firstName" required><br>
+                    <input type="text" id="firstName" v-model="firstName" required><br>
 
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" required><br>
+                    <label for="surname">Surname:</label>
+                    <input type="text" id="surname" v-model="surname" required><br>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required><br>
+                    <label for="emailAddress">Email:</label>
+                    <input type="emailAddress" id="emailAddress" v-model="emailAddress" required><br>
 
-                    <label for="address">Address:</label>
-                    <input type="address" id="address" name="address" required><br>
+                    <label for="shippingAddress">Shipping Address:</label>
+                    <input type="text" id="shippingAddress" v-model="shippingAddress" required><br>
 
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="customer.password" required><br>
+                    <input type="password" id="password" v-model="password" required><br>
 
                     <button type="submit">Create Account</button>
                 </form>
-                
-                <div id="statusMessage"></div>
 
             </div>
+
+            <footer>
+                <h1>Join the Boris Army</h1>
+            </footer>       
         </main>
-        <footer>
-            <h1>Join the Boris Army</h1>
-        </footer>       
-
-        <!-- JavaScript to handle message display -->
-        <script>
-            window.onload = function () {
-                const statusMessage = document.getElementById('statusMessage');
-                if (statusMessage.innerHTML !== '') {
-                    statusMessage.style.display = 'block';
-                }
-            };
-        </script>
-
+        <script type="module" src="js/create-account.js"></script>
     </body>
 </html>

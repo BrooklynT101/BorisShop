@@ -1,14 +1,14 @@
 export const navigationMenu = {
-  computed: {
-    signedIn() {
-      return this.customer !== null;
+    computed: {
+        signedIn() {
+            return this.customer !== null;
+        },
+        ...Vuex.mapState({
+                customer: 'customer'
+        })
     },
-    ...Vuex.mapState({
-      customer: 'customer'
-    })
-  },
 
-  template: `
+    template: `
     <nav>
       <div v-if="signedIn">Welcome {{customer.firstName}}</div>
       <a href=".">Home</a>
@@ -19,11 +19,13 @@ export const navigationMenu = {
     </nav>
   `,
 
-  methods: {
-    signOut() {
-      sessionStorage.clear();
-      this.$store.commit('signIn', null); // Clear customer state if needed
-      window.location = '.'; // Redirect after signing out
+    methods: {
+        signOut() {
+            sessionStorage.removeItem('selectedProduct');
+            sessionStorage.removeItem('items');
+            sessionStorage.clear();
+            this.$store.commit('signIn', null); // Clear customer state if needed
+            window.location = '.'; // Redirect after signing out
+        }
     }
-  }
 };
