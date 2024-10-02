@@ -28,22 +28,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Example item -->
-                    <tr>
-                        <td>Product 1</td>
-                        <td>$10.00</td>
-                        <td>2</td>
-                        <td>$20.00</td>
-                    </tr>
-                    <tr>
-                        <td>Product 2</td>
-                        <td>$15.00</td>
-                        <td>1</td>
-                        <td>$15.00</td>
+                    <!-- Vue template to render cart items -->
+                    <tr v-for="item in cartItems" :key="item.productId">
+                        <td>{{ item.name }}</td>
+                        <td>${{ item.price.toFixed(2) }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ (item.price * item.quantity).toFixed(2) }}</td>
                     </tr>
                 </tbody>
             </table>
-            <h2>Total Amount: $35.00</h2>
+            
+            <h2>Total Amount: ${{ totalAmount.toFixed(2) }}</h2>
             <button onclick="window.location = 'checkout.html'">Proceed to Checkout</button>
 
             <footer>
