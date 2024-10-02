@@ -2,16 +2,13 @@ export const sessionStore = Vuex.createStore({
 
     state() {
         return {
-            // signed in customer
+// signed in customer
             customer: null,
             // the shopping cart items
-            items: null
-
+            items: [],
+            // selected product
+            selectedProduct: null
         };
-
-        // selected product
-        selectedProduct: null;
-
     },
     mutations: {
         // user signs in
@@ -19,15 +16,21 @@ export const sessionStore = Vuex.createStore({
             state.customer = customer;
             state.items = new Array();
         },
-
         // user selects a product
         selectProduct(state, product) {
             state.selectedProduct = product;
         },
-
-        // add item to cart
+        
         addItem(state, item) {
             state.items.push(item);
+        },
+        // add item to cart
+        addProduct(state, product) {
+            state.items.push(product);
+        },
+        //update cart items
+        updateCart(state, items) {
+            state.items = items;
         }
 
     },

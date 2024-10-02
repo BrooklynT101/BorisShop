@@ -43,11 +43,11 @@ const app = Vue.createApp({
                         }
                     });
         }
-    },
-
-    mounted() {
-        alert('Mounted method called');
     }
+
+//    mounted() {
+//        alert('Mounted method called');
+//    }
 //    mixins: []
 
 }

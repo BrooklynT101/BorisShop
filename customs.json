@@ -7,8 +7,9 @@
             "context": "form"
         },
         "v-if": {},
-        "@click": {
-            "context": "button"
+        "@click": {},
+        "v-else": {
+            "context": "div"
         },
         "v-for": {},
         "v-model": {},
