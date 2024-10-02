@@ -22,18 +22,16 @@ class Sale {
 const app = Vue.createApp({
 
     data() {
-        return {
-            totalAmount: 0 // to hold the total cart amount
-        };
+        return {};
     },
     computed: {
         ...Vuex.mapState({
                 items: 'items',
-                customer: 'customer',
-                totalAmount() {
-                        return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
-                }
-        })
+                customer: 'customer'
+        }),
+        totalAmount() {
+            return this.items.reduce((total, item) => total + (item.salePrice * item.quantityPurchased), 0);
+        }
     },
 
     mounted() {
@@ -53,23 +51,25 @@ const app = Vue.createApp({
 
         // clear cart items
         clearItems() {
-            this.items = [];
-            sessionStore.commit('updateCart', this.items);
+            console.log('Cart cleared');
+            sessionStore.commit('updateCart', []);
         },
 
         addItem(item) {
-            const checkItem = this.items.find(i => i.productId === item.productId);
-            //if check exists update the item quantity
-            if (checkItem) {
-                checkItem.quantity += item.quantity;
+            if (!item) {
+                console.error('Tried to add an invalid item to cart');
+                return;
             }
-            //else push the item
-            else {
-                this.items.push(item);
-            }
+            // commit to the session
+            sessionStore.commit('addItem', item);
+        },
 
-//            commit to the session
-            sessionStore.commit('updateCart', this.items);
+        removeItem(productId) {
+            if (!productId) {
+                console.error('Tried to delete a cart item with an invalid product ID!');
+                return;
+            }
+            sessionStore.commit('removeItem', productId);
         }
     }
 

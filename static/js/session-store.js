@@ -14,47 +14,49 @@ export const sessionStore = Vuex.createStore({
         // user signs in
         signIn(state, customer) {
             state.customer = customer;
-            state.items = new Array();
+//            state.items = new Array();
         },
+        
         // user selects a product
         selectProduct(state, product) {
             state.selectedProduct = product;
         },
-
-        addItem(product, quantity) {
-            //            error checking
-            if (!product) {
-                console.error('No product selected');
+        
+        addItem(state, saleItem) {
+            // error checking
+            if (!saleItem || !saleItem.product) {
+                console.error('Sale item or Product is invalid');
                 return;
             }
 
-////cloning the cart items to remove vue proxy and circular referencing
-//            let cartItems = JSON.parse(JSON.stringify(this.items || [])); // retrieve current items or initialize empty array
+            console.log('Product to be added:', saleItem.product);
+            // cloning the cart items to remove vue proxy and circular referencing
+            // let cartItems = JSON.parse(JSON.stringify(this.items || [])); // retrieve current items or initialize empty array
 
             // checking if the product already exists in the cart
-            const existingItem = this.items.find(item => item.productId === product.productId);
-            // if it does, update quantity
+            const existingItem = state.items.find(item => item.product.productId === saleItem.product.productId);
             if (existingItem) {
-                existingItem.quantity += parseInt(quantity, 10);
-                // else just add it
+                console.log('Found exisiting item in cart, updating quantity Purchased');
+                // if it does, update quantityPurchased
+                existingItem.quantityPurchased += saleItem.quantityPurchased;
             } else {
-                // Add the new product to the cart
-                this.items.push({
-                    productId: product.productId,
-                    name: product.name,
-                    price: product.listPrice,
-                    quantity: parseInt(quantity, 10)
+                console.log('Adding new item to cart');
+                // else just add a new saleitem to the cart
+                state.items.push({
+                    product: saleItem.product,
+                    quantityPurchased: saleItem.quantityPurchased,
+                    salePrice: saleItem.salePrice
                 });
             }
 
-            console.log('Cart Items:', this.items);
-            console.log('Product to be added:', product);
-            // commit clean cart to Vuex state
-            sessionStore.commit('updateCart', this.items);
-            console.log(`Added ${quantity} of ${product.name} to the cart.`);
-//            window.location = 'view-products.html';
+            console.log(`Added ${saleItem.quantityPurchased} of ${saleItem.product.name} to the cart.`);
         },
-        
+        //CGPT gave me the idea for the filtering by productId rather than product
+        removeItem(state, productId) {
+            let filteredItems = state.items.filter(item => item.product.productId !== productId);
+            sessionStore.commit('updateCart', filteredItems);
+        },
+
         //update cart items
         updateCart(state, items) {
             state.items = items;

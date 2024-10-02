@@ -63,7 +63,7 @@ const app = Vue.createApp({
         },
 
         buyProduct(product) {
-            sessionStore.commit("selectedProduct", product);
+            sessionStore.commit("selectProduct", product);
 //            this.$store.commit('selectedProduct', product);
             window.location = "quantity.html";
         }
