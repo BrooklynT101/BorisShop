@@ -14,22 +14,27 @@ import org.jdbi.v3.sqlobject.transaction.Transaction;
  *
  * @author Brooklyn
  */
-
 public interface SaleJdbiDAO extends SaleDAO {
 
-    // inserts new sale into sales table,
+    // inserts new sale into Sale table,
     // retrieves the genrated sale ID for save method
-    @SqlUpdate("INSERT INTO sales (customer_id, date, status) VALUES (:customer.customerId, :date, :status)")
+    @SqlUpdate("INSERT INTO Sale (date, customerId, status, total) VALUES (:date, :customer.customerId, :status, :saleTotal)")
     @GetGeneratedKeys
     Integer insertSale(@BindBean Sale sale);
 
     // inserts the new SaleItem into the sale_item table, linked by sale ID
-    @SqlUpdate("INSERT INTO sale_item (saleid, productId, quantity, salePrice) VALUES (:saleId, :item.product.productId, :item.quantityPurchased, :item.salePrice)")
-    void insertSaleItem(@BindBean SaleItem item, @Bind("saleId") Integer saleId);
+    @SqlUpdate("INSERT INTO Sale_item (saleid, productId, quantity, salePrice) VALUES (:saleId, :productId, :quantityPurchased, :salePrice)")
+    void insertSaleItem(
+            @Bind("saleId") int saleId,
+            @Bind("productId") String productId,
+            @Bind("quantityPurchased") int quantityPurchased,
+            @Bind("salePrice") BigDecimal salePrice);
 
-    // Updates the stock level of a product in the products table
-    @SqlUpdate("UPDATE products SET quantityinstock = quantityinstock - :item.quantityPurchased WHERE productid = :item.product.productId")
-    void updateStockLevel(@BindBean SaleItem item);
+    // updates the stock level of a product in the Product table
+    @SqlUpdate("UPDATE Product SET quantityinstock = quantityinstock - :quantityPurchased WHERE productid = :productId")
+    void updateStockLevel(
+            @Bind("quantityPurchased") int quantityPurchased,
+            @Bind("productId") String productId);
 
     @Override
     @Transaction
@@ -46,8 +51,12 @@ public interface SaleJdbiDAO extends SaleDAO {
 
         // loop through the sale's items.
         for (SaleItem item : sale.getItems()) {
-            insertSaleItem(item, saleId);
-            updateStockLevel(item);
+            boolean debugging = true;
+            if (debugging) {
+                System.out.println("SaleItem: \nSaleID: " + saleId + "\nProduct: " + item.getProduct() + "\nQuantity Purchased: " + item.getQuantityPurchased() + "\nProduct List Price:" + item.getProduct().getListPrice());
+            }
+            insertSaleItem(saleId, item.getProduct().getProductId(), item.getQuantityPurchased(), item.getProduct().getListPrice());
+            updateStockLevel(item.getQuantityPurchased(), item.getProduct().getProductId());
         }
     }
 }

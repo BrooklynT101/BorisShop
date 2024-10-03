@@ -8,14 +8,17 @@ import java.math.BigDecimal;
 public class SaleItem {
 
     private Product product;
-    private int quantity;
+    private int quantityPurchased;
+    private BigDecimal salePrice;
 
     public SaleItem() {
     }
 
-    public SaleItem(Product product, int quantity) {
+    public SaleItem(Product product, int quantityPurchased) {
         this.product = product;
-        this.quantity = quantity;
+        this.quantityPurchased = quantityPurchased;
+        this.salePrice = product.getListPrice();
+    
     }
 
     public Product getProduct() {
@@ -27,20 +30,20 @@ public class SaleItem {
     }
 
     public int getQuantityPurchased() {
-        return quantity;
+        return quantityPurchased;
     }
 
-    public void setQuantityPurchased(int quantity) {
-        this.quantity = quantity;
+    public void setQuantityPurchased(int quantityPurchased) {
+        this.quantityPurchased = quantityPurchased;
     }
 
     public BigDecimal getItemTotal() {
-        return this.product.getListPrice().multiply(BigDecimal.valueOf(quantity));
+        return this.product.getListPrice().multiply(BigDecimal.valueOf(quantityPurchased));
     }
 
     @Override
     public String toString() {
-        return "SaleItem{" + "product=" + product + ", quantity=" + quantity + '}';
+        return "SaleItem{" + "product=" + product + ", quantity=" + quantityPurchased + ", Product list price"+ salePrice +'}';
     }
 
 }

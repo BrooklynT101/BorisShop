@@ -1,9 +1,13 @@
 /* global Vue, axios */
 
 "use strict";
+
 // import data store
-import { sessionStore }
-from './session-store.js';
+import { sessionStore } from './session-store.js';
+
+// import the navigation menu
+import { navigationMenu } from './navigation-menu.js';
+
 class SaleItem {
     constructor(product, quantityPurchased) {
         this.product = product;
@@ -64,8 +68,11 @@ const app = Vue.createApp({
     }
 });
 /* other component imports go here */
+// register the navigation menu under the <navmenu> tag
+app.component('navmenu', navigationMenu);
 
 // use vuex store
 app.use(sessionStore);
+
 // mount the page - this needs to be the last line in the file
 app.mount("main");
