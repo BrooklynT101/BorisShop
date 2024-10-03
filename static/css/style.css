@@ -1,6 +1,4 @@
-/*While I can work the styling commands of css well, 
-I'm not great at styling or graphic design, so I had 
-ChatGPT to help me with making my site look...not as bad*/
+/* Used ChatGPT for some of the styling techniques for layout and formatting */
 
 /* Basic reset */
 * {
@@ -26,28 +24,27 @@ p {
     margin-bottom: 15px;
 }
 
-/* Navigation Menu */
-/* Navigation Menu */
-.navbar {
-    background-color: #333;
+button {
+    background-color: #29cc1b;
+    width: auto;
+    height: auto;
+    border-radius: 4px;
     padding: 10px;
-    text-align: center;
 }
 
-.nav-menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+/* Navigation Menu */
+
+.navmenu {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
 }
 
-.nav-menu li {
-    margin-right: 20px;
-}
 
-.nav-link {
-    color: white;
+.nav-links {
+    display: flex;
     text-decoration: none;
     font-weight: bold;
     padding: 10px 15px;
@@ -55,7 +52,7 @@ p {
     border-radius: 5px;
 }
 
-.nav-link:hover {
+.nav-links a:hover {
     text-decoration: none;
     background-color: #444;
     border-radius: 5px;
@@ -81,7 +78,7 @@ footer {
     width: 100%;
     bottom: 0;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; 
+    margin-top: 20px;
 }
 
 
@@ -95,18 +92,25 @@ footer {
 }
 
 .productContent {
-    padding: 20px;
+    padding: 10px;
     padding-bottom: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 .product {
     background-color: #f9f9f9;
+    display: flex;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: calc(33% - 40px);
     text-align: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+    margin: 10px;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product h2 {
@@ -122,12 +126,14 @@ footer {
 }
 
 .categories button {
-    margin-right: 10px;
-    padding: 10px 20px;
-    background-color: #007BFF;
+    width: 100%;
+    height: auto;
     color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: steelblue;
     border: none;
-    border-radius: 5px;
+    color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -144,7 +150,7 @@ footer {
 }
 
 .boris-images img {
-    width: 300px; 
+    width: 300px;
     height: 400px;
     object-fit: cover; /* crop image to fit dimensions */
     border-radius: 10px;
@@ -157,4 +163,98 @@ footer {
     transform: scale(1.1); /* zoom in on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* add hover shadow */
 }
+
+/* Checkout page Stylings*/
+.checkout-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 80px;
+}
+
+/* Item Section */
+.items-section {
+    display: flex;
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: stretch;
+    align-items: stretch;
+}
+
+.items-section h2 {
+    margin-bottom: 10px;
+    color: #444;
+    font-size: 24px;
+}
+
+/* Summary Section */
+.summary-section {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 33%;
+}
+
+.summary-section h2 {
+    margin-bottom: 20px;
+    color: #444;
+    font-size: 24px;
+    color: red;
+}
+
+.summary-section button {
+    margin-bottom: 20px;
+    color: #444;
+    font-size: 24px;
+    color: red;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+
+
+
+
+
+
+
+
+
+
 
