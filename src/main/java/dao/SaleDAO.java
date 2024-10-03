@@ -7,6 +7,7 @@ import java.util.Collection;
  *
  * @author Brooklyn
  */
+//basic interface for the CRUD actions on the DAO
 public interface SaleDAO {
 
     void saveSale(Sale sale);
