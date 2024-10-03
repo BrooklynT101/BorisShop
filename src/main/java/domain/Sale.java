@@ -11,19 +11,21 @@ import java.util.HashSet;
 public class Sale {
 
 	private Integer saleId;
-	private LocalDateTime date;
+	private transient LocalDateTime date;
 	private Customer customer;
 	private String status;
+	private BigDecimal saleTotal;
 
 	private Collection<SaleItem> items = new HashSet<>();
 
 	public Sale() {
 	}
 
-	public Sale(LocalDateTime date, Customer customer, String status) {
+	public Sale(LocalDateTime date, Customer customer, String status, BigDecimal saleTotal) {
 		this.date = date;
 		this.customer = customer;
 		this.status = status;
+                this.saleTotal = saleTotal;
 	}
 
 	public Customer getCustomer() {
@@ -36,6 +38,16 @@ public class Sale {
 
 	public Integer getSaleId() {
 		return saleId;
+	}
+        
+        //set sale total if needed
+        public void setSaleTotal(BigDecimal saleTotal) {
+		this.saleTotal = saleTotal;
+	}
+
+        //return the sale total
+	public BigDecimal getSaleTotal() {
+		return saleTotal;
 	}
 
 	public void setSaleId(Integer saleId) {

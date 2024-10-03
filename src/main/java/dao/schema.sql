@@ -1,5 +1,7 @@
-DROP TABLE Customer;
-DROP TABLE Product;
+DROP TABLE Customer IF EXISTS;
+DROP TABLE Product IF EXISTS;
+DROP TABLE Sale IF EXISTS;
+DROP TABLE Sale_Item IF EXISTS;
  
 create table Customer (
     customerId INTEGER AUTO_INCREMENT (1000),
@@ -23,22 +25,22 @@ create table Product (
 )
 
 CREATE TABLE Sale (
-    SaleId INT PRIMARY KEY AUTO_INCREMENT,
+    saleId INT PRIMARY KEY AUTO_INCREMENT,
     Date TIMESTAMP NOT NULL, -- create a timestamp for the sale
-    CustomerId INT NOT NULL,          --fk
-    Status VARCHAR(255) NOT NULL,
-    Total DECIMAL(10, 2),                   
-    FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)  -- Links to the Customer table
+    customerId INT NOT NULL,          --fk
+    status VARCHAR(255) NOT NULL,  
+    saleTotal DECIMAL(10, 2) NOT NULL,           
+    FOREIGN KEY (customerId) REFERENCES Customer(customerId)  -- Links to the Customer table
 );
 
 CREATE TABLE Sale_Item (
-    SaleId INT, --PK
-    ProductId VARCHAR(50), --PK
-    Quantity DECIMAL(10, 2) NOT NULL,
-    SalePrice DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY (SaleId, ProductId),               -- Composite primary key (each Sale-Product pair is unique) - CGPT
-    FOREIGN KEY (SaleId) REFERENCES Sale(SaleId) ON DELETE CASCADE,     -- Cascade deletes (if a sale is deleted, its items are deleted) - CGPT
-    FOREIGN KEY (ProductId) REFERENCES Product(ProductId)  -- Links to the Product table
+    saleId INT, --PK
+    productId VARCHAR(50), --PK
+    quantity DECIMAL(10, 2) NOT NULL,
+    salePrice DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (saleId, productId),               -- Composite primary key (each Sale-Product pair is unique) - CGPT
+    FOREIGN KEY (saleId) REFERENCES Sale(saleId) ON DELETE CASCADE,     -- Cascade deletes (if a sale is deleted, its items are deleted) - CGPT
+    FOREIGN KEY (productId) REFERENCES Product(productId)  -- Links to the Product table
 );
 
 -- INSERT INTO "PUBLIC"."PRODUCT"("PRODUCTID", "NAME", "DESCRIPTION", "CATEGORY", "LISTPRICE", "QUANTITYINSTOCK") VALUES('435', 'Jaw Extender', U&'Is your cats underbit causing too much "tongue issue"?\000aTry this faux jaw extension to put that thing back where it came from!', 'Medical', 78.99, 32.00);
