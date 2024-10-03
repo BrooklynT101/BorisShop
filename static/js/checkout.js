@@ -56,8 +56,8 @@ const app = Vue.createApp({
                         window.location = 'order-confirmation.html'; // Redirect after checkout
                     })
                     .catch(error => {
-                        console.error('Error during checkout:', error.response.data);
-                        alert('Error during checkout: ' + error.response.data);
+                        console.error('Error during checkout:', error.response);
+                        alert('Error during checkout: ' + error.response);
                     });
         },
 

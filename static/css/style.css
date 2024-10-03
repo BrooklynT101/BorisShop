@@ -30,6 +30,12 @@ button {
     height: auto;
     border-radius: 4px;
     padding: 10px;
+    cursor: pointer;
+}
+
+button :hover {
+    text-decoration: none;
+    border-radius: 5px;
 }
 
 /* Navigation Menu */
@@ -211,11 +217,14 @@ footer {
     color: red;
 }
 
+.summary-section p2 {
+    color: gray;
+}
+
 .summary-section button {
-    margin-bottom: 20px;
-    color: #444;
-    font-size: 24px;
-    color: red;
+    margin: 15px;
+    font-size: 20px;
+    color: white;
 }
 
 .order-item {
@@ -247,8 +256,26 @@ footer {
     background-color: #218838;
 }
 
+/*Checkout Confirmation Page Stylings*/
+.confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.confirmation h1 {
 
+}
+
+.confirmation h2 {
+    font-size: larger;
+}
+
+.confirmation img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-top: 20px;
+}
 
 
 
