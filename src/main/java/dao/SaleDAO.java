@@ -1,20 +1,13 @@
 package dao;
 
 import domain.Sale;
-import java.util.Collection;
 
 /**
  *
- * @author Brooklyn
+ * @author Mark
  */
-//basic interface for the CRUD actions on the DAO
 public interface SaleDAO {
 
-    void saveSale(Sale sale);
+	void save(Sale sale);
 
-    Sale getSaleById(int saleId);
-
-    Collection<Sale> getAllSales();
-
-    void deleteSale(int saleId);
 }
