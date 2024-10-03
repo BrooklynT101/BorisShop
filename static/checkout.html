@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css"/>
+        <script src="js/external/vue.global.js"></script>
+        <script src="js/external/vuex.global.js"></script>
+        <script src="js/external/vuex-persistedstate.js"></script>
+        <script src="js/external/axios.js"></script>
+        <title>Checkout Page</title>
+    </head>
+    <body>
+        <main>
+
+            <navmenu></navmenu>
+
+            <header>
+                <h1>Checkout</h1>
+            </header>
+
+            <div class="checkout-container">
+                <section class="items-section">
+                    <table id="cart-items">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Vue template to render cart items -->
+                            <tr v-for="item in items" :key="item.product.productId">
+                                <td>{{ item.product.name }}</td>
+                                <td>${{ item.salePrice.toFixed(2) }}</td>
+                                <td>{{ item.quantityPurchased }}</td>
+                                <td>${{ (item.salePrice * item.quantityPurchased).toFixed(2) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="summary-section">
+                    <h2><u>Billing Details</u></h2>
+                    <p><strong>Full Name:</strong> {{customer.firstName}} {{customer.surname}} </p>
+                    <div>
+                        <h2><u>Shipping Address</u></h2>
+                        <p><strong>Shipping Origin:</strong> 123 EverythingIsFromChina LTD PO:3246<p> <!-- mock value -->
+                        <p><strong>Shipping Destination:</strong> {{customer.shippingAddress}}</p>
+                        <p><strong>Shipping Fee:</strong> ${{shippingCost}}<br>(calculated by distance over 1km)</p>
+                    </div>
+
+                    <!-- Payment Information -->
+                    <div>
+                        <h2><u>Payment Information</u></h2>
+                        <p><strong>Saved Card:</strong> <br>****-****-****-9643<p> <!-- mock value -->
+                        <p><strong>Expiry Date:</strong> 3/27</p> <!-- mock value -->
+                        <form>
+                            <label for="cvv"><strong>CVV: </strong></label> <!-- mock input -->
+                            <input type="text" id="cvv" name="cvv" required>
+                        </form>
+                    </div>
+
+                    <div>
+                        <h2><u>Order Summary</u></h2>
+                        <p><strong>Subtotal:</strong> ${{productTotal}}</p>
+                        <p><strong>Shipping Fee:</strong> ${{shippingCost}}</p> <!-- mock value -->
+                        <p><strong>Total:</strong> ${{ (productTotal + shippingCost).toFixed(2) }}</p>
+                    </div>
+                    <button @click.prevent="confirmCheckout()">Confirm Purchase</button>
+                    <button onclick="window.location = 'view-products.html'">Cancel</button>
+                </section>
+
+            </div>
+
+            <footer>
+                <p>Stock moves fast, buy now!</p>
+            </footer>
+        </main>
+        <script type="module" src="js/checkout.js"></script>
+    </body>
+</html>
