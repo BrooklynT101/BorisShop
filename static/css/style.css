@@ -102,6 +102,7 @@ header {
 footer {
     background-color: #333;
     color: white;
+    font-size: small;
     text-align: center;
     padding: 15px 0;
     position: fixed;
@@ -112,14 +113,52 @@ footer {
     max-height: 80px;
 }
 
+footer h1 {
+    margin-bottom: 0;
+}
 
-/* Products */
+/* Index/Homepage Stylings */
+.header-message {
+    margin-bottom: 0px;
+}
+
+.boris-images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    height: 100%;
+    position: relative;
+    top: 10px;
+}
+
+.boris-images img {
+    width: 300px;
+    height: 400px;
+    object-fit: cover; /* crop image to fit dimensions */
+    border-radius: 10px;
+    border-color: black;
+    border-width: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* hover effect */
+}
+
+.boris-images img:hover {
+    transform: scale(1.1); /* zoom in on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* add hover shadow */
+}
+
+/* Products Page Stylings */
 #productList {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     padding: 20px;
+}
+
+.productId {
+    margin-bottom: 0;
+    font-size: smaller;
+    color: #555;
 }
 
 .productContent {
@@ -173,34 +212,77 @@ footer {
     background-color: #0056b3;
 }
 
-/* Boris Pic Styling */
-.boris-images {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.boris-images img {
-    width: 300px;
-    height: 400px;
-    object-fit: cover; /* crop image to fit dimensions */
-    border-radius: 10px;
-    border-color: black;
-    border-width: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* hover effect */
-}
-
-.boris-images img:hover {
-    transform: scale(1.1); /* zoom in on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* add hover shadow */
-}
-
 /* Checkout page Stylings*/
-.checkout-container {
+.cart-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-items {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cart-items th, .cart-items td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-items th {
+    background-color: #f4f4f4;
+}
+
+.cart-items tr:hover {
+    background-color: #f1f1f1;
+}
+
+.remove-btn {
+    background-color: red;
+    border: 1px;
+    border-color: black;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cart-actions {
+    text-align: end;
+    right: 20px;
+    position: relative;
+}
+
+.cart-actions thead{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding-bottom: 80px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+.cart-actions button {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+}
+
+.cart-actions button :hover {
+    background-color: #005f6b;
+}
+
+.cartTotal {
+    text-align: end;
+    position: relative;
+    right: 30px;
 }
 
 /* Item Section */
@@ -225,6 +307,11 @@ footer {
 }
 
 /* Summary Section */
+.checkout-container {
+    display: flex;
+    margin-bottom: 80px;
+}
+
 .summary-section {
     flex: 1;
     background-color: white;
@@ -323,4 +410,64 @@ footer {
     height: 30px;
     width: 150px;
     text-align: center;
+}
+
+/* Quantity/Product Details Page Stylings */
+.info-container {
+    width: 80%;
+    max-width: 800px; /* Limit maximum width for larger screens */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    margin-bottom: 20px;
+}
+
+.product-info h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.product-info h1 {
+    font-size: 22px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.product-info label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.product-info input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100px; /* Set a fixed width for the input */
+    margin-bottom: 10px;
+}
+
+.product-info button {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+.product-info button:hover {
+    background-color: #005f6b;
 }

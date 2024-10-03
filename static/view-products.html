@@ -31,11 +31,10 @@
             <div class="productContent">
                 <!-- for each product using the Vue v-for -->
                 <div class="product" v-for="product in filteredProducts" :key="product.productId">
-                    <h2>{{ product.name }} (ID: {{ product.productId }})</h2>
+                    <h2>{{ product.name }}</h2>
                     <p>{{ product.description }}</p>
-                    <p><strong>Category:</strong> {{ product.category }}</p>
-                    <p><strong>Price:</strong> ${{ product.listPrice }}</p>
-                    <p><strong>Quantity In Stock:</strong> {{ product.quantityInStock }}</p>
+                    <p><strong>Price:</strong> {{ formatCurrency(product.listPrice) }}</p>
+                    <p><strong>Quantity In Stock:</strong> {{ formatNumber(product.quantityInStock, 2) }}</p>
                     <button @click.prevent="buyProduct(product)">Buy</button>
                 </div>
 

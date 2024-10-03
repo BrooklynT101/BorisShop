@@ -25,26 +25,27 @@
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Vue template to render cart items -->
                     <tr v-for="item in items" :key="item.product.productId">
                         <td>{{ item.product.name }}</td>
-                        <td>${{ item.salePrice.toFixed(2) }}</td>
-                        <td>{{ item.quantityPurchased }}</td>
-                        <td>${{ (item.salePrice * item.quantityPurchased).toFixed(2) }}</td>
-                        <td><button @click.prevent="removeItem(item.product.productId)">&times;</button></td>
+                        <td>{{ formatCurrency(item.salePrice) }}</td>
+                        <td>{{ formatNumber(item.quantityPurchased, 2) }}</td>
+                        <td>{{ formatCurrency((item.salePrice * item.quantityPurchased)) }}</td>
+                        <td><button class="remove-btn" @click.prevent="removeItem(item.product.productId)">&times;</button></td>
                     </tr>
                 </tbody>
             </table>
 
-            <h2 v-if="items">Total Amount: ${{ totalAmount.toFixed(2) }}</h2>
-            <div>
+            <h2 class="cartTotal" v-if="items.length">Total Amount: {{ formatCurrency(totalAmount) }}</h2>
+            <div class="cart-actions">
                 <button @click.prevent="clearItems()">Clear Cart</button>
                 <button onclick="window.location = 'checkout.html'">Proceed to Checkout</button>
-            </div>
                 <button onclick="window.location = 'view-products.html'">Continue Shopping</button>
+            </div>
             <footer>
                 <h1>We sell the biggest range of Cat Products</h1>
             </footer>

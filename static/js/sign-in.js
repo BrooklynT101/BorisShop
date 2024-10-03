@@ -24,7 +24,7 @@ const app = Vue.createApp({
 
                         // store customer in session
                         sessionStore.commit('signIn', customer);
-                        alert('User Signed In!');
+//                        alert('User Signed In!');
                         window.location = 'index.html';
 
                     })

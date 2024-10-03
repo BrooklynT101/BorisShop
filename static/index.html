@@ -15,7 +15,8 @@
             <!--adding nav menu-->
             <navmenu></navmenu>
             <header>
-                <!--need to  add custom <h1> heading welcoming the user-->
+                <h3 class="header-message" v-if="customer">Enjoy the Boris</h3>
+                <h3 class="header-message" v-else="customer">Welcome to the Boris!<br>Sign in or Create an account today!</h3>
             </header>
 
             <!-- Content Area -->

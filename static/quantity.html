@@ -17,14 +17,16 @@
             <header>
                 <h1>Product Details</h1>
             </header>
-            <section id="info-container">
-                <div id="product-info" v-if="product">
+            
+            <section class="info-container">
+                <div class="product-info" v-if="product">
                     <h2>{{ product.name }}</h2>
+                    <p class="productId"><strong>ID: {{ product.productId }}</strong></p>
                     <h1>Category: {{ product.category }}</h1>
                     <p>{{ product.description }}</p>
-                    <p>Price: ${{ product.listPrice }}</p>
-                    <p>Quantity in Stock: {{ product.quantityInStock }}</p>
-                    <label for="quantity">Quantity:</label>
+                    <p><strong>Price:</strong> {{ formatCurrency(product.listPrice) }}</p>
+                    <p><strong>Quantity in Stock:</strong> {{ formatNumber(product.quantityInStock, 2) }}</p>
+                    <label for="quantity"><strong>Quantity:</strong></label>
                     <input type="number" id="quantity" min="1" v-model="quantity">
                     <button @click="addToCart">Add to Cart</button>
                 </div>
@@ -32,6 +34,7 @@
                     <p>Loading product details...</p>
                 </div>
             </section>
+            
             <footer>
                 <h1>We sell the biggest range of Cat Products</h1>
             </footer>

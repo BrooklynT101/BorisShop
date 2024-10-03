@@ -6,6 +6,9 @@ import { sessionStore } from './session-store.js';
 // import the navigation menu
 import { navigationMenu } from './navigation-menu.js';
 
+// import the number formatter
+import { NumberFormatter } from './number-formatter.js';
+
 var productsApi = '/api/products';
 const categoriesApi = '/api/categories';
 
@@ -68,7 +71,8 @@ const app = Vue.createApp({
             window.location = "quantity.html";
         }
 
-    }
+    },
+    mixins: [NumberFormatter]
 
 });
 

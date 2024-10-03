@@ -6,6 +6,9 @@ import { sessionStore } from './session-store.js';
 // import the navigation menu
 import { navigationMenu } from './navigation-menu.js';
 
+// import the number formatter
+import { NumberFormatter } from './number-formatter.js';
+
 class SaleItem {
     constructor(product, quantityPurchased) {
         this.product = product;
@@ -48,7 +51,8 @@ const app = Vue.createApp({
             
             
         }
-    }
+    },
+    mixins: [NumberFormatter]
 });
 
 // register the navigation menu under the <navmenu> tag
