@@ -70,7 +70,7 @@
                         <p><strong>Shipping Fee:</strong> {{ formatCurrency(shippingCost) }}</p> <!-- mock value -->
                         <p><strong>Total:</strong> {{ formatCurrency((productTotal + shippingCost)) }}</p>
                     </div>
-                    <button @click.prevent="confirmCheckout()">Confirm Purchase</button>
+                    <button v-if="items.length" @click.prevent="confirmCheckout()">Confirm Purchase</button>
                     <button onclick="window.location = 'view-products.html'">Cancel</button>
                 </section>
 

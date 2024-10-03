@@ -14,7 +14,8 @@ export const sessionStore = Vuex.createStore({
         // user signs in
         signIn(state, customer) {
             state.customer = customer;
-//            state.items = new Array();
+            state.items = new Array();
+            state.selectedProduct = null;
         },
         
         // user selects a product

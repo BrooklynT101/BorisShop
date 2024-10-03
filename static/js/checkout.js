@@ -54,7 +54,7 @@ const app = Vue.createApp({
             axios.post('api/sales/', sale)
                     // - then call clearItems()
                     .then(response => {
-                        alert("Checkout successful! Order placed.");
+//                        alert("Checkout successful! Order placed.");
                         this.clearItems(); // Clear cart after checkout
                         window.location = 'order-confirmation.html'; // Redirect after checkout
                     })
