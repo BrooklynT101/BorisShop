@@ -10,18 +10,24 @@ export const navigationMenu = {
 
     template: `
     <nav class="navmenu">
-        <div v-if="signedIn">Welcome {{customer.firstName}}</div>
+        <div class="welcome-message" v-if="signedIn"><p>Welcome {{customer.firstName}}</p></div>
         <div class="nav-links">    
-            <a href=".">Home</a>
-            <a href="view-products.html" v-if="signedIn">Browse Products</a>
-            <a href="cart.html" v-if="signedIn">View Cart</a>
-            <a href="#" v-if="signedIn" @click="signOut()">Sign Out</a>
-            <a href="sign-in.html" v-if="!signedIn">Sign In</a>
+            <button @click="navigateTo('.')">Home</button>
+            <button v-if="signedIn" @click="navigateTo('view-products.html')">Browse Products</button>
+            <button v-if="signedIn" @click="navigateTo('cart.html')">View Cart</button>
+            <button v-if="signedIn" @click="signOut()">Sign Out</button>
+            <button v-if="!signedIn" @click="navigateTo('sign-in.html')">Sign In</button>
+            <button v-if="!signedIn" @click="navigateTo('create-account.html')">Create an Account</button>
         </div>    
     </nav>
   `,
 
     methods: {
+
+        navigateTo(url) {
+            window.location.href = url;
+        },
+
         signOut() {
             sessionStorage.removeItem('selectedProduct');
             sessionStorage.removeItem('items');
